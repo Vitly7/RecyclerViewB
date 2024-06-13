@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRecyclerView();
+    }
 
     private void loadRecyclerView() {
         AsyncHttpClient ahc = new AsyncHttpClient();
