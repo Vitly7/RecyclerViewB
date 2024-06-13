@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         _recyclerView1 = findViewById(R.id.recyclerView1);
         _txtMahasiswaCount = findViewById(R.id.txtMahasiswaCount);
 
+
         initAddButton();
         loadRecyclerView();
 

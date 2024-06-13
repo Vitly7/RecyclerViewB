@@ -15,11 +15,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -83,10 +86,27 @@ public class AddMahasiswaActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Log.d("*tw*", new String(responseBody));
 
-                        new AlertDialog.Builder(AddMahasiswaActivity.this)
-                                .setTitle("Berhasil")
-                                .setMessage("Record berhasil disimpan.")
-                                .show();
+                        Gson g = new Gson();
+                        String responseString = new String(responseBody);
+                        Map<String, String> responseMap = g.fromJson(responseString, new TypeToken<Map<String, String>>(){}.getType());
+                        String status = responseMap.get("status");
+
+                        if (status != null && status.equals("OK")) {
+                            String message = responseMap.get("message");
+                            new AlertDialog.Builder(AddMahasiswaActivity.this)
+                                    .setTitle("Berhasil")
+                                    .setMessage(message)
+                                    .setOnDismissListener(dialog -> finish())
+                                    .show();
+                        }else {
+                            String errorMessage = responseMap.get("message");
+                            new AlertDialog.Builder(AddMahasiswaActivity.this)
+                                    .setTitle("Gagal")
+                                    .setMessage(errorMessage)
+                                    .setOnDismissListener(dialog -> finish())
+                                    .show();
+
+                        }
                     }
 
                     @Override
