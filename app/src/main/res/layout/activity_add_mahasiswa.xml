@@ -29,7 +29,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nimEditText"/>
+            android:id="@+id/nimEditText"
+            android:inputType="number"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/namaEditText"/>
+            android:id="@+id/namaEditText"
+            android:inputType="textCapSentences"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +62,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tempatLahirEditText"/>
+            android:id="@+id/tempatLahirEditText"
+            android:inputType="textCapSentences"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,7 +84,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/alamatEditText"/>
+            android:id="@+id/alamatEditText"
+            android:inputType="textCapSentences"/>
 
         <TextView
             android:layout_width="wrap_content"
