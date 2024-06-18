@@ -15,7 +15,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"f
             android:layout_marginBottom="10dp"
             android:text="Mahasiswa Baru"
             android:textSize="25sp"
