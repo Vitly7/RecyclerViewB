@@ -2,6 +2,7 @@ package com.example.recyclerviewb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton _addButton;
+    private FloatingActionButton _addButton, refreshButton;
     private RecyclerView _recyclerView1;
-    private TextView _txtMahasiswaCount;
+    private TextView _txtMahasiswaCount, _txtSearch;
+    private MahasiswaAdapter ma;
+    private ImageButton _btnSearch;
+    private List<MahasiswaModel> mahasiswaModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,41 @@ public class MainActivity extends AppCompatActivity {
 
         initAddButton();
         loadRecyclerView();
+        initRefreshButton();
+        initSearchButton();
 
+    }
+
+    private void initSearchButton() {
+        _txtSearch = findViewById(R.id.txtSearch);
+        _txtSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                String filterText = _txtSearch.getText().toString();
+                if (!filterText.isEmpty()){
+                    fii(filterText);
+                }
+                else
+                    loadRecyclerView();
+                return false;
+
+            }
+        });
+    }
+
+    public void filter(String text) {
+        List<MahasiswaModel> filteredList = new ArrayList<>();
+
+        for (MahasiswaModel item: mahasiswaModelList) {
+            if (item.getNama().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+        } else {
+            ma.filterList(filteredList);
+        }
     }
 
     private void initAddButton() {
@@ -88,5 +126,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void initRefreshButton() {
+        _refreshButton = findViewById(R.id.refreshButton);
+        _refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadRecyclerView();
+            }
+        });
+
     }
 }
