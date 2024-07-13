@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton _addButton, refreshButton;
+    private FloatingActionButton _addButton, _refreshButton;
     private RecyclerView _recyclerView1;
     private TextView _txtMahasiswaCount, _txtSearch;
     private MahasiswaAdapter ma;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String filterText = _txtSearch.getText().toString();
                 if (!filterText.isEmpty()){
-                    fii(filterText);
+                    filter(filterText);
                 }
                 else
                     loadRecyclerView();
