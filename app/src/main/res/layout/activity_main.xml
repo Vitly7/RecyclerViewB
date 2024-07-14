@@ -20,12 +20,12 @@
             android:background="@color/cardview_dark_background">
             <EditText
                 android:layout_width="0dp"
-                layout_weight="1"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:id="@+id/txtSearch"
                 android:textColorHint="@color/cardview_light_background"
-                android:textColor="white">
+                android:textColor="#fffff">
             </EditText>
         </LinearLayout>
 
@@ -68,11 +68,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="85dp"
-        layout_marginBottom="20dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/baseline_refresh_24"
         android:backgroundTint="#444444"
         android:id="@+id/refreshButton"
-        android:contentDescription="Refresh"/>
+        android:contentDescription="Refresh Button"/>
 
 
 
