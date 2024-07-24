@@ -25,7 +25,7 @@
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:id="@+id/txtSearch"
                 android:textColorHint="@color/cardview_light_background"
-                android:textColor="#fffff">
+                android:textColor="@color/white">
             </EditText>
         </LinearLayout>
 
