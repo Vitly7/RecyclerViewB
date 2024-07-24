@@ -2,6 +2,8 @@ package com.example.recyclerviewb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView _recyclerView1;
     private TextView _txtMahasiswaCount, _txtSearch;
     private MahasiswaAdapter ma;
-    private ImageButton _btnSearch;
     private List<MahasiswaModel> mahasiswaModelList;
 
     @Override
@@ -49,26 +50,36 @@ public class MainActivity extends AppCompatActivity {
         initAddButton();
         loadRecyclerView();
         initRefreshButton();
-        initSearchButton();
+        initSearch();
 
     }
 
-    private void initSearchButton() {
+
+    private void initSearch() {
         _txtSearch = findViewById(R.id.txtSearch);
-        _txtSearch.setOnKeyListener(new View.OnKeyListener() {
+        _txtSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Tidak perlu melakukan apapun disini
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String filterText = _txtSearch.getText().toString();
                 if (!filterText.isEmpty()){
                     filter(filterText);
-                }
-                else
+                } else {
                     loadRecyclerView();
-                return false;
+                }
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Tidak perlu melakukan apapun disini
             }
         });
     }
+
 
     public void filter(String text) {
         List<MahasiswaModel> filteredList = new ArrayList<>();
@@ -79,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (filteredList.isEmpty()) {
-            Toast.makeText(this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
         } else {
-            ma.filterList(filteredList);
+            ma.filter(filteredList);
         }
     }
 
@@ -103,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         loadRecyclerView();
     }
 
+
     private void loadRecyclerView() {
         AsyncHttpClient ahc = new AsyncHttpClient();
         String url = "https://stmikpontianak.net/011100862/tampilMahasiswa.php";
@@ -111,12 +123,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Gson g = new Gson();
-                List<MahasiswaModel> mahasiswaModelList = g.fromJson(new String(responseBody), new TypeToken<List<MahasiswaModel>>(){}.getType());
+                Type listType = new TypeToken<List<MahasiswaModel>>(){}.getType();
+                mahasiswaModelList = g.fromJson(new String(responseBody), listType);
 
                 RecyclerView.LayoutManager lm = new LinearLayoutManager(MainActivity.this);
                 _recyclerView1.setLayoutManager(lm);
 
-                MahasiswaAdapter ma = new MahasiswaAdapter(mahasiswaModelList);
+                ma = new MahasiswaAdapter(mahasiswaModelList);
                 _recyclerView1.setAdapter(ma);
 
                 String mahasiswaCount = "Total Mahasiswa : " + ma.getItemCount();
@@ -129,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void initRefreshButton() {
         _refreshButton = findViewById(R.id.refreshButton);

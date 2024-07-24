@@ -96,14 +96,14 @@ public class AddMahasiswaActivity extends AppCompatActivity {
                             new AlertDialog.Builder(AddMahasiswaActivity.this)
                                     .setTitle("Berhasil")
                                     .setMessage(message)
-                                    .setOnDismissListener(dialog -> finish())
+
                                     .show();
                         }else {
                             String errorMessage = responseMap.get("message");
                             new AlertDialog.Builder(AddMahasiswaActivity.this)
                                     .setTitle("Gagal")
                                     .setMessage(errorMessage)
-                                    .setOnDismissListener(dialog -> finish())
+
                                     .show();
 
                         }

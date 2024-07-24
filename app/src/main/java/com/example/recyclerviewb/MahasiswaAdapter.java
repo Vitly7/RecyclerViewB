@@ -17,7 +17,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaViewHolder> 
         this._mahasiswaModelList = mahasiswaModelList;
     }
 
-    public void filterList(List<MahasiswaModel> filteredList) {
+    public void filter(List<MahasiswaModel> filteredList) {
         this._mahasiswaModelList = filteredList;
         notifyDataSetChanged();
     }
